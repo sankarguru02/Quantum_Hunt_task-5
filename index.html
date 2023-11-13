@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merged Video</title>
+    <!-- Include Video.js CSS -->
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
+    <!-- Include Video.js library -->
+    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+
+    <style>
+        body{
+            background: red;
+        }
+        #mergedVideo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 640px; 
+            height: 360px;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Task - 6</h1>
+<!-- Video container -->
+<video id="mergedVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+    <source src="file1.mp4" type="video/mp4">
+    <source src="file2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<script>
+    // Initialize Video.js
+    var player = videojs('mergedVideo');
+
+    // Event listener for ended event
+    player.on('ended', function () {
+        // Play the next video when the current video ends
+        playNextVideo();
+    });
+
+    // Function to play the next video
+    function playNextVideo() {
+        // Get the current source index
+        var currentIndex = player.currentSrc() === 'file1.mp4' ? 0 : 1;
+
+        // Determine the next source index
+        var nextIndex = (currentIndex + 1) % 2;
+
+        // Set the next video source
+        player.src({ type: 'video/mp4', src: 'file' + (nextIndex + 1) + '.mp4' });
+
+        // Play the next video
+        player.play();
+    }
+</script>
+
+</body>
+</html>
